@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="text/javascript">
+            function feedsData() {
+                var xhttp = new XMLHttpRequest();
+                var uri = "https://api.thingspeak.com/channels/1897127/feeds.json";
+
+                xhttp.onreadystatechange = function() {
+                    if(this.readyState == 4 && this.status == 200) {
+                        // ver los datos en crudo (en formato JSON) en la página
+                        document.write(xhttp.responseText);
+
+                        // ver los datos parseados en la consola
+                        var responseData = JSON.parse(xhttp.responseText);
+                         console.log(responseData);
+                    };
+                };
+
+                // inicializar la petición HTTP
+                xhttp.open("GET", uri, true);
+                // enviar la petición HTTP
+                xhttp.send();
+            };
+        </script>
+    </head>
+    <body onload="feedsData()">
+    </body>
+</html>

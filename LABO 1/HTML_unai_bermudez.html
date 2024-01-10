@@ -1,0 +1,57 @@
+<!--
+proyectos personales BERMUDEZ OSABA
+SISTEMAS WEB GL1
+27 DE FEBRERO 2023
+ENTREGA PRACTICA 1 - PAGINA HTTP
+DESCRIPCION:
+Crear página HTML para que grafique los datos del canal descargados desde ThingSpeak
+
+-->
+
+<html>
+
+    <head>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+          google.charts.load('current', {'packages':['corechart']});
+          google.charts.setOnLoadCallback(drawChart);
+
+          function drawChart() {
+                    var xhttp = new XMLHttpRequest();
+                    // datos del canal "Mi Canal 2"
+                    var uri = "https://api.thingspeak.com/channels/2046303/feeds.json?api_key=0FREY0XBHILQKS1V";
+                    xhttp.onreadystatechange = function() {
+                    if(this.readyState == 4 && this.status == 200) {
+                        var respuesta = JSON.parse(xhttp.responseText);
+                        var tabla = new google.visualization.DataTable(); 
+                        tabla.addColumn('datetime','hora'); 
+                        tabla.addColumn('number','cpu');
+                        tabla.addColumn('number','ram');
+                        for(var i=0;i<respuesta["feeds"].length;i++){
+                            var hora = respuesta["feeds"][i]["created_at"]; 
+                            var cpu= respuesta["feeds"][i]["field1"];
+                            var ram= respuesta["feeds"][i]["field2"];
+                            tabla.addRow([new Date(hora), parseFloat(cpu), parseFloat(ram)]); 
+                        };
+                        console.log(tabla);
+                        var options = { title: 'Rendimiento del ordenador', legend: {position: 'bottom'},
+                                        curveType: 'function', colors: ['LimeGreen', 'HotPink'],
+                                        series: {0: {targetAxisIndex: 0}, 1: {targetAxisIndex: 1}},
+                                        vAxes: {0: {title: '%CPU'}, 1: {title: '%RAM'}}, backgroundColor : 'PowderBlue'
+                                        };
+                        var chart = new google.visualization.LineChart(document.getElementById('tabla_datos'));
+                        chart.draw(tabla, options);
+                    };
+                    };
+                    // inicializar la petición HTTP
+                    xhttp.open("GET", uri, true);
+                    // enviar la petición HTTP
+                    xhttp.send();
+          }
+        </script>
+    </head>
+    <body style="background-color: coral">
+       <div id="tabla_datos" style="border-radius : 10px; border: 2px solid; margin: auto; width: 90%; height: 80% ; padding: 3px;" ></div>
+    </body>
+</html>
+
