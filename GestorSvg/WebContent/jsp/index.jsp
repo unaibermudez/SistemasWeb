@@ -8,7 +8,7 @@
 
 <body>
 	<header>
-		<h1>Gestor Imágenes SVG en eXist</h1>
+		<h1>Gestor Imágenes SVG en eXist UNAI BERMUDEZ</h1>
 		<h3>SW 2023</h3>
 	</header>
 

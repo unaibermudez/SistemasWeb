@@ -36,6 +36,7 @@ public class EditarSvg extends HttpServlet {
 		request.setAttribute("svgName",svgName);
 		request.setAttribute("imagenSVG",imagenSVG);
 		String imagenURI = "http://localhost:8080/exist/rest/db/" + collection + "/" + svgName + "/";
+		System.out.println("imagenURI: " + imagenURI);
 		request.setAttribute("imagenURI",imagenURI);
 		
 		System.out.println("     Redireccionando a imagenEdit.jsp");

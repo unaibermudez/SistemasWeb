@@ -37,6 +37,7 @@ table.edicion {
 }
 
 th, td {
+	margin: 5px;
 	padding: 5px;
 	font-size: 15px;
 	text-align: center;
@@ -90,6 +91,9 @@ footer {
 	margin: 4px;
 	background-color: rgb(83, 33, 168);
 	font-size: 0.8em;
+	color: white;
+	text-align: center;
+	
 }
 /*
 nav {
@@ -185,6 +189,7 @@ object {
 	/*background:#f0f0f0;*/
 }
 
+
 div svg {
 	width: 100%;
 	height: 100%;
@@ -192,8 +197,8 @@ div svg {
 }
 img,div,object,iframe,embed,svg {
   border: 1px solid #222;
-  width: 106px;
-  height: 122px;
+  width: 212px;
+  height: 244px;
   display: inline-block;
   margin:1em;
   padding:1em;

@@ -35,9 +35,9 @@ public class ListResources extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String collection = "";
-		collection = request.getParameter("collection");
-		String data=""; data = eXist.list(collection);
+		String collection = request.getParameter("collection");
+		String data = eXist.list(collection);
+		System.out.println("DATA: " + data);
 		Map<String, String> listaSVG;
 		System.out.println("LIST_RESOURCE" + data);
 		if (data.equals("")) {
@@ -47,6 +47,7 @@ public class ListResources extends HttpServlet {
 			rd.forward(request, response);
 		} 
 		else {
+			if (convertStringToXMLDocument(data).getElementsByTagName("exist:resource").getLength() != 0) {
 			Document doc = convertStringToXMLDocument(data);
 			NodeList valorNode = doc.getElementsByTagName("exist:resource");
 			System.out.println("valor " + valorNode.getLength());
@@ -64,6 +65,13 @@ public class ListResources extends HttpServlet {
 			System.out.println("     Redireccionando el usuario a imagenList.jsp");
 			RequestDispatcher rd = request.getRequestDispatcher("/jsp/imagenList.jsp");
 			rd.forward(request, response);
+			}
+			else {
+				request.setAttribute("informacion", "Coleccion vacía");
+				RequestDispatcher rd = request.getRequestDispatcher("/jsp/index.jsp");
+				rd.forward(request, response);
+			}
+			
 		}
 	}
 
